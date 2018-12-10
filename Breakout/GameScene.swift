@@ -4,7 +4,7 @@
 //
 //  Created by Henrik on 2018-12-10.
 //  Copyright © 2018 Henrik. All rights reserved.
-//
+//  This is a Breakout game
 
 import SpriteKit
 import GameplayKit
