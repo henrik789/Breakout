@@ -24,20 +24,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 
         backgroundColor = UIColor.gray
         
-//        let str = "löedag, hopp"
-//        for char in str{
-//            print(": \(char)")
-//        }
-//        print(frame.width, frame.height)
-//        let block = SKSpriteNode(imageNamed: "yellowBlock.png")
-//        block.position = CGPoint(x: frame.width / 2,
-//                                 y: frame.height / 2)
-//        addChild(block)
+        let path = CGMutablePath()
+        path.addArc(center: CGPoint.zero,
+                    radius: 15,
+                    startAngle: 0,
+                    endAngle: CGFloat.pi * 2,
+                    clockwise: true)
+        let ball = SKShapeNode(path: path)
+        ball.lineWidth = 0.5
+        ball.fillColor = .white
+        ball.strokeColor = .yellow
+        ball.glowWidth = 0.5
+        ball.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5 )
+        addChild(ball)
+
         setUpBricks()
         
         
 //        setupLabels()
 //        setupPhysics()
+
         let label1 = SKLabelNode(text: "Menu")
         let label2 = SKLabelNode(text: "Timer:")
         let label3 = SKLabelNode(text: "Score")
@@ -63,12 +69,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     func setUpBricks(){
         
         
-        let string1 = "--oo--"
+        let string1 =   """
+                        -_o-o_-,
+                        o-_o_-o
+                        """
+        
         let numberOfBlocks = Int(string1.count)
         let blockWidth = SKSpriteNode(imageNamed: "yellowBlock.png").size.width
         let blockHeight = SKSpriteNode(imageNamed: "yellowBlock.png").size.height
         let totalBlocksWidth = blockWidth * CGFloat(numberOfBlocks)
-        let xOffset = (frame.width - totalBlocksWidth) / 2
+        let xOffset = (frame.width - (totalBlocksWidth / 2)) / 2
         var block = SKSpriteNode(imageNamed: "yellowBlock.png")
         block.physicsBody = SKPhysicsBody(rectangleOf: block.frame.size)
         block.physicsBody!.allowsRotation = false
@@ -79,6 +89,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         block.physicsBody!.categoryBitMask = BlockCategory
         block.zPosition = 2
         var i = 0
+        var row = 0.8
+
 
         for char in string1{
             
@@ -87,20 +99,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             case "o":
                 block = SKSpriteNode(imageNamed: "yellowBlock.png")
                 block.position = CGPoint(x: xOffset + (CGFloat(i) * 1.1) * blockWidth,
-                                         y: (frame.height * 0.8) + blockHeight)
+                                         y: (frame.height * CGFloat(row)) + blockHeight)
                 
                 addChild(block)
                 i += 1
                 print("char: \(char, i)")
-//                print(numberOfBlocks, totalBlocksWidth, blockWidth, blockHeight, xOffset)
+                print(numberOfBlocks, totalBlocksWidth, blockWidth, blockHeight, xOffset)
                 
             case "-":
                 block = SKSpriteNode(imageNamed: "orangeBlock.png")
                 block.position = CGPoint(x: xOffset + (CGFloat(i) * 1.1) * blockWidth,
-                                         y: (frame.height * 0.8) + blockHeight)
+                                         y: (frame.height * CGFloat(row)) + blockHeight)
                 addChild(block)
                 i += 1
                 print("char: \(char, i)")
+            case ",":
+                row = 0.7
+                i = 0
+            case "_":
+                print("f")
+                let emptyBlock = SKShapeNode(rectOf: CGSize(width: block.size.width, height: block.size.height))
+                emptyBlock.position = CGPoint(x: xOffset + (CGFloat(i) * 1.1) * blockWidth,
+                                         y: (frame.height * CGFloat(row)) + blockHeight)
+                emptyBlock.lineWidth = 0
+                addChild(emptyBlock)
+                i += 1
             default:
                 break
                 
