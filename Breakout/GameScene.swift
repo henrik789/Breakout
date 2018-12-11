@@ -9,95 +9,171 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+let BallCategory   : UInt32 = 0x1 << 0
+let BottomCategory : UInt32 = 0x1 << 1
+let BlockCategory  : UInt32 = 0x1 << 2
+let PaddleCategory : UInt32 = 0x1 << 3
+let BorderCategory : UInt32 = 0x1 << 4
+
+class GameScene: SKScene, SKPhysicsContactDelegate{
     
-//    var entities = [GKEntity]()
-//    var graphs = [String : GKGraph]()
-//
-//    private var lastUpdateTime : TimeInterval = 0
-//    private var label : SKLabelNode?
-//    private var spinnyNode : SKShapeNode?
+    var phoneSize = GameViewController.screensize
+
     
     override func didMove(to view: SKView) {
-        let color = UIColor.gray
-        backgroundColor = color
-            setupPlayerAndObstacles()
+
+        backgroundColor = UIColor.gray
         
-        for i in 1...5{
+//        let str = "löedag, hopp"
+//        for char in str{
+//            print(": \(char)")
+//        }
+//        print(frame.width, frame.height)
+//        let block = SKSpriteNode(imageNamed: "yellowBlock.png")
+//        block.position = CGPoint(x: frame.width / 2,
+//                                 y: frame.height / 2)
+//        addChild(block)
+        setUpBricks()
+        
+        
+//        setupLabels()
+//        setupPhysics()
+        let label1 = SKLabelNode(text: "Menu")
+        let label2 = SKLabelNode(text: "Timer:")
+        let label3 = SKLabelNode(text: "Score")
+        if(phoneSize.width >= 800){
+            label1.position = CGPoint(x: size.width - (size.width * 0.05), y: size.height - (size.height * 0.15) )
+            addChild(label1)
+            label2.position = CGPoint(x: size.width - (size.width * 0.95), y: size.height - (size.height * 0.15))
+            addChild(label2)
+            label3.position = CGPoint(x: size.width - (size.width * 0.95), y: size.height - (size.height * 0.2) )
+            addChild(label3)
+        }else{
+            label1.position = CGPoint(x: size.width - (size.width * 0.05), y: size.height - (size.height * 0.05) )
+            addChild(label1)
+            label2.position = CGPoint(x: size.width - (size.width * 0.95), y: size.height - (size.height * 0.05))
+            addChild(label2)
+            label3.position = CGPoint(x: size.width - (size.width * 0.95), y: size.height - (size.height * 0.1) )
+            addChild(label3)
+        }
+        
+    }
+    
+    
+    func setUpBricks(){
+        
+        
+        let string1 = "--oo--"
+        let numberOfBlocks = Int(string1.count)
+        let blockWidth = SKSpriteNode(imageNamed: "yellowBlock.png").size.width
+        let blockHeight = SKSpriteNode(imageNamed: "yellowBlock.png").size.height
+        let totalBlocksWidth = blockWidth * CGFloat(numberOfBlocks)
+        let xOffset = (frame.width - totalBlocksWidth) / 2
+        var block = SKSpriteNode(imageNamed: "yellowBlock.png")
+        block.physicsBody = SKPhysicsBody(rectangleOf: block.frame.size)
+        block.physicsBody!.allowsRotation = false
+        block.physicsBody!.friction = 0.0
+        block.physicsBody!.affectedByGravity = false
+        block.physicsBody!.isDynamic = false
+        block.name = "block"
+        block.physicsBody!.categoryBitMask = BlockCategory
+        block.zPosition = 2
+        var i = 0
+
+        for char in string1{
             
-        let number = Int.random(in: 1...20)
-        print(number)
+            
+            switch  char{
+            case "o":
+                block = SKSpriteNode(imageNamed: "yellowBlock.png")
+                block.position = CGPoint(x: xOffset + (CGFloat(i) * 1.1) * blockWidth,
+                                         y: (frame.height * 0.8) + blockHeight)
+                
+                addChild(block)
+                i += 1
+                print("char: \(char, i)")
+//                print(numberOfBlocks, totalBlocksWidth, blockWidth, blockHeight, xOffset)
+                
+            case "-":
+                block = SKSpriteNode(imageNamed: "orangeBlock.png")
+                block.position = CGPoint(x: xOffset + (CGFloat(i) * 1.1) * blockWidth,
+                                         y: (frame.height * 0.8) + blockHeight)
+                addChild(block)
+                i += 1
+                print("char: \(char, i)")
+            default:
+                break
+                
+            }
         }
     }
     
-    func setupPlayerAndObstacles() {
-        addObstacle()
-    }
-    
-    func addObstacle() {
-        addCircleObstacle()
-    }
-    
-    func addCircleObstacle() {
-        // 1
-        let path = UIBezierPath()
-        // 2
-//        path.move(to: CGPoint(x: 0, y: 200))
-        // 3
-//        path.addLine(to: CGPoint(x: 0, y: 0))
-        // 4
-        path.addArc(withCenter: CGPoint.zero,
-                    radius: 60,
-                    startAngle: CGFloat(1.0 * .pi / 2),
-                    endAngle: CGFloat(0),
-                    clockwise: true)
-        // 5
-        path.addLine(to: CGPoint(x: 200, y: 0))
-        path.addArc(withCenter: CGPoint.zero,
-                    radius: 200,
-                    startAngle: CGFloat(0),
-                    endAngle: CGFloat(1.0 * .pi / 2),
-                    clockwise: false)
-        
-        let section = SKShapeNode(path: path.cgPath)
-        section.position = CGPoint(x: size.width/2, y: size.height/2)
-        section.fillColor = .white
-        section.strokeColor = .black
-        addChild(section)
-        
-        let duration = 1.0
-        let open = SKAction.fadeOut(withDuration: duration)
-//        let wait = SKAction.wait(forDuration: duration)
-        let close = SKAction.fadeIn(withDuration: duration * 2)
-        let sequence = SKAction.sequence([open, close, open, close])
-        
-    section.run(SKAction.repeatForever(sequence))
-    }
-    
-//    override func sceneDidLoad() {
+//    func setupLabels(){
 //
-//        self.lastUpdateTime = 0
-//
-//        // Get label node from scene and store it for use later
-//        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-//        if let label = self.label {
-//            label.alpha = 0.0
-//            label.run(SKAction.fadeIn(withDuration: 2.0))
+//        var livesLabel: SKLabelNode?
+//        var lives: Int = 3{
+//            didSet{
+//                self.livesLabel?.text = "Lives: \(Int(self.lives))"
+//            }
 //        }
 //
-//        // Create shape node to use during mouse interaction
-//        let w = (self.size.width + self.size.height) * 0.05
-//        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
 //
-//        if let spinnyNode = self.spinnyNode {
-//            spinnyNode.lineWidth = 2.5
-//
-//            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-//            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-//                                              SKAction.fadeOut(withDuration: 0.5),
-//                                              SKAction.removeFromParent()]))
+//        var timeLabel: SKLabelNode?
+//        var remainingTime: TimeInterval = 60{
+//            didSet{
+//                self.timeLabel?.text = "Time: \(Int(self.remainingTime))"
+//            }
 //        }
+//
+//        var scoreLabel: SKLabelNode?
+//        var currentScore: Int = 0{
+//            didSet{
+//                scoreLabel?.text = "Score: \(self.currentScore)"
+//            }
+//        }
+//        scoreLabel = self.childNode(withName: "points") as? SKLabelNode
+//        timeLabel = self.childNode(withName: "timer") as? SKLabelNode
 //    }
+
+    
+    func setupPhysics(){
+        
+        let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        borderBody.friction = 0
+        
+        self.physicsBody = borderBody
+        physicsWorld.gravity = CGVector(dx: 0.0, dy: 0.0)
+        physicsWorld.contactDelegate = self
+        
+        let ball = childNode(withName: "ball") as! SKSpriteNode
+        ball.physicsBody!.applyImpulse(CGVector(dx: 10.0, dy: 50.0))
+        
+        
+        
+        let bottomRect = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: 1)
+        let bottom = SKNode()
+        bottom.physicsBody = SKPhysicsBody(edgeLoopFrom: bottomRect)
+        addChild(bottom)
+        
+        let paddle = childNode(withName: "paddle") as! SKSpriteNode
+        
+        bottom.physicsBody!.categoryBitMask = BottomCategory
+        ball.physicsBody!.categoryBitMask = BallCategory
+        paddle.physicsBody!.categoryBitMask = PaddleCategory
+        borderBody.categoryBitMask = BorderCategory
+        ball.physicsBody!.contactTestBitMask = BottomCategory | BlockCategory | BorderCategory | PaddleCategory
+        
+        let trailNode = SKNode()
+        trailNode.zPosition = 1
+        addChild(trailNode)
+        
+        let trail = SKEmitterNode(fileNamed: "BallTrail")!
+        trail.targetNode = trailNode
+        ball.addChild(trail)
+        
+    }
+    
+
     
     
     func touchDown(atPoint pos : CGPoint) {
@@ -166,3 +242,21 @@ class GameScene: SKScene {
 }
 }
 
+
+
+//        "__**____**__
+//        __**________**"
+//
+//        position
+//
+//        for (tkn : string) {
+//
+//            if tkn == *
+//                block = creat_block;
+//                block.position = psoition;
+//            if radbrytning
+//                change position to new line
+//
+//            position += blocksize
+//
+//        }
