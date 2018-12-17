@@ -9,23 +9,22 @@
 //import SpriteKit
 //import GameplayKit
 //
+//struct Blocks {
+//    var block = SKSpriteNode(imageNamed: "yellowBlock.png")
+//}
 //
 //class Block : SKSpriteNode{
 //
-//    var block: SKSpriteNode
 //
-//    init(){
+//        var blocks = Blocks()
+//        
 //
 //
-//        block = SKSpriteNode(imageNamed: "yellowBlock.png")
-//        block.physicsBody = SKPhysicsBody(rectangleOf: block.size)
+//
+//        var blocks.physicsBody = SKPhysicsBody(rectangleOf: block.size)
 //        block.physicsBody!.categoryBitMask = BlockCategory
 //        block.zPosition = 2
 //
-//    }
-//    
-//    
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+//
+//
 //}
