@@ -18,7 +18,7 @@ class GameViewController: UIViewController {
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
-        let scene = GameScene(size: CGSize(width: 1334, height: 750))
+        let scene = StartScene(size: CGSize(width: 1334, height: 750))
             
             // Get the SKScene from the loaded GKScene
 //            if let sceneNode = scene.rootNode as! GameScene? {

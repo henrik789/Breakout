@@ -16,7 +16,9 @@ let PaddleCategory : UInt32 = 0x1 << 3
 let BorderCategory : UInt32 = 0x1 << 4
 
 class GameScene: SKScene, SKPhysicsContactDelegate{
-    
+    var red1 = 42.0
+    var green1 = 97.0
+    var blue1 = 113.0
     var phoneSize = GameViewController.screensize
     var isFingerOnPaddle = false
     let paddleRect = SKShapeNode(rectOf: CGSize(width: 160, height: 20))
@@ -25,24 +27,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var lives: Int = 3{
         didSet{
             livesLabel.text = "Lives: \(Int(lives))"
+            livesLabel.fontName = "Futura-MediumItalic"
+            livesLabel.fontSize = 24
         }
     }
     let timerLabel = SKLabelNode(text: "Timer:")
     var remainingTime: TimeInterval = 60{
         didSet{
             timerLabel.text = "Timer: \(Int(remainingTime))"
+            GameManager.sharedInstance.score = currentScore
+            timerLabel.fontName = "Futura-MediumItalic"
+            timerLabel.fontSize = 24
         }
     }
     let scoreLabel = SKLabelNode(text: "Score:")
     var currentScore: Int = 0{
         didSet{
             scoreLabel.text = "Score: \(currentScore)"
+            scoreLabel.fontName = "Futura-MediumItalic"
+            scoreLabel.fontSize = 24
         }
     }
 
     
     override func didMove(to view: SKView) {
         
+                let bgColor1 = UIColor(displayP3Red: CGFloat(red1 / 255.0), green: CGFloat(green1 / 255.0), blue: CGFloat(blue1 / 255.0), alpha: 1)
+        backgroundColor = bgColor1
+        print(bgColor1)
         if(lives > 0){
             setUpBricks()
             remainingTime = 60
@@ -59,7 +71,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     
+    
+   
+    
+    
     func setUpBricks(){
+        
         
         
         let string1 =   """
@@ -67,6 +84,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                         o-_o_-o,
                         -_o-o_-
                         """
+        let string2 =   """
+                        __ooo__,
+                        o-----o,
+                        oo___oo,
+                        ooo_ooo
+                        """
+
+        if(lives < 4){
+        
         
 //        let numberOfBlocks = Int(string1.count)
         let blockWidth = SKSpriteNode(imageNamed: "yellowBlock.png").size.width
@@ -94,7 +120,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //        var row = 0.8
 
 
-        for char in string1{
+        for char in string2{
             
             
             switch  char{
@@ -142,7 +168,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 
             }
         }
-
+        }
     }
     
     func setupLabels(){
@@ -167,10 +193,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     func preventsBallToGetStuck(){
         
-//        let ball = SKSpriteNode(imageNamed: "ball")
-//        var xSpeed = ball.physicsBody?.velocity.dx
-//        print(xSpeed as Any)
-//
+        let ball = SKSpriteNode(imageNamed: "ball")
+        ball.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(10))
+        var xSpeed = ball.physicsBody!.velocity.dx
+        
+//        if(Int(xSpeed!) <  5){
+//            ball.physicsBody?.applyImpulse(CGVector(dx: 5, dy: 5))
+//        }
+//        print(xSpeed)
+
     }
 
     
@@ -292,6 +323,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         // 1
         if firstBody.categoryBitMask == BallCategory && secondBody.categoryBitMask == BorderCategory {
 //            print("hit border")
+
         }
         
         
@@ -377,6 +409,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     override func update(_ currentTime: TimeInterval) {
+        
+        preventsBallToGetStuck()
+//        red1 *= 1.001
+//        green1 *= 1.001
+//        blue1 *= 1.001
+//        print(red1)
+
 
     }
     

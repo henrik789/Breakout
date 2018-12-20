@@ -17,6 +17,10 @@
 		AFACE72321BEBE5400C9AA4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFACE72121BEBE5400C9AA4C /* Main.storyboard */; };
 		AFACE72521BEBE5600C9AA4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFACE72421BEBE5600C9AA4C /* Assets.xcassets */; };
 		AFACE72821BEBE5600C9AA4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFACE72621BEBE5600C9AA4C /* LaunchScreen.storyboard */; };
+		AFC072FF21CB9A7500600553 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC072FE21CB9A7500600553 /* GameManager.swift */; };
+		AFC0730121CB9C5500600553 /* SetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC0730021CB9C5500600553 /* SetupData.swift */; };
+		AFC0730321CB9C7800600553 /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC0730221CB9C7800600553 /* StartScene.swift */; };
+		AFC0730521CBA9E700600553 /* ScrollingBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC0730421CBA9E700600553 /* ScrollingBackground.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +36,10 @@
 		AFACE72421BEBE5600C9AA4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AFACE72721BEBE5600C9AA4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFACE72921BEBE5600C9AA4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AFC072FE21CB9A7500600553 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		AFC0730021CB9C5500600553 /* SetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupData.swift; sourceTree = "<group>"; };
+		AFC0730221CB9C7800600553 /* StartScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
+		AFC0730421CBA9E700600553 /* ScrollingBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollingBackground.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +75,11 @@
 				AFACE71721BEBE5400C9AA4C /* AppDelegate.swift */,
 				AFACE71B21BEBE5400C9AA4C /* Actions.sks */,
 				AFACE71D21BEBE5400C9AA4C /* GameScene.swift */,
+				AFC072FE21CB9A7500600553 /* GameManager.swift */,
+				AFC0730021CB9C5500600553 /* SetupData.swift */,
+				AFC0730221CB9C7800600553 /* StartScene.swift */,
 				AF5B077321C19CCE006CF925 /* BrokenPlatform.sks */,
+				AFC0730421CBA9E700600553 /* ScrollingBackground.swift */,
 				AF22090321BFB82800A0B8BA /* GameFunctions.swift */,
 				AF5B077521C268BC006CF925 /* Block.swift */,
 				AFACE71F21BEBE5400C9AA4C /* GameViewController.swift */,
@@ -152,11 +164,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFC0730521CBA9E700600553 /* ScrollingBackground.swift in Sources */,
 				AFACE71E21BEBE5400C9AA4C /* GameScene.swift in Sources */,
+				AFC072FF21CB9A7500600553 /* GameManager.swift in Sources */,
+				AFC0730121CB9C5500600553 /* SetupData.swift in Sources */,
 				AF22090421BFB82800A0B8BA /* GameFunctions.swift in Sources */,
 				AF5B077621C268BC006CF925 /* Block.swift in Sources */,
 				AFACE72021BEBE5400C9AA4C /* GameViewController.swift in Sources */,
 				AFACE71821BEBE5400C9AA4C /* AppDelegate.swift in Sources */,
+				AFC0730321CB9C7800600553 /* StartScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
