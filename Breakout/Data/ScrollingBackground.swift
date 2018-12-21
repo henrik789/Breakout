@@ -1,10 +1,11 @@
 //
 //  ScrollingBackground.swift
-//  ColorGame
+//  Breakout
 //
-//  Created by Brian Advent on 06.08.17.
-//  Copyright © 2017 Brian Advent. All rights reserved.
+//  Created by Henrik on 2018-12-20.
+//  Copyright © 2018 Henrik. All rights reserved.
 //
+
 
 import SpriteKit
 
@@ -17,7 +18,7 @@ class ScrollingBackground: SKSpriteNode {
         
         let scrollNode = ScrollingBackground(color: UIColor.clear, size: CGSize(width: width, height: bgImage.size.height))
         
-        scrollNode.scrollingSpeed = 1
+        scrollNode.scrollingSpeed = 2
         
         var totalWidthNeeded:CGFloat = 0
         

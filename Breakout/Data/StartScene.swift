@@ -9,12 +9,7 @@
 import SpriteKit
 
 class StartScene: SKScene{
-    var red1 = 72.0
-    var green1 = 84.0
-    var blue1 = 96.0
-    var red2 = 255.0
-    var green2 = 192.0
-    var blue2 = 72.0
+   
     var scrollingBG: ScrollingBackground?
     var breakoutLogo = SKSpriteNode(imageNamed: "brick-wall2")
     let startLabel = SKLabelNode(text: "Start game")
@@ -22,15 +17,16 @@ class StartScene: SKScene{
     
     override func didMove(to view: SKView) {
         
-        let bgColor1 = UIColor(displayP3Red: CGFloat(red1 / 255.0), green: CGFloat(green1 / 255.0), blue: CGFloat(blue1 / 255.0), alpha: 1)
-        backgroundColor = bgColor1
-        let bgColor2 = UIColor(displayP3Red: CGFloat(red2 / 255.0), green: CGFloat(green2 / 255.0), blue: CGFloat(blue2 / 255.0), alpha: 1)
-        
         scrollingBG = ScrollingBackground.scrollingNodeWithImage(imageName: "brick-wall", containerWidth: self.size.width)
         scrollingBG?.scrollingSpeed = 1.5
         scrollingBG?.anchorPoint = .zero
-        
         self.addChild(scrollingBG!)
+        
+        setupLabels()
+
+    }
+    
+    func setupLabels(){
         
         startLabel.fontName = "Futura-MediumItalic"
         startLabel.fontSize = 70
@@ -49,6 +45,7 @@ class StartScene: SKScene{
         breakoutLogo.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         breakoutLogo.zPosition = 1
         addChild(breakoutLogo)
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -61,7 +58,7 @@ class StartScene: SKScene{
 //                gameScene = SKScene(fileNamed: "GameScene")
                 let scene = GameScene(size: CGSize(width: 1334, height: 750))
 
-                scene.scaleMode = .aspectFit
+                scene.scaleMode = .aspectFill
                 self.view?.presentScene(scene, transition: transition)
                 
             }

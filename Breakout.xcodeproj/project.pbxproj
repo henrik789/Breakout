@@ -7,11 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF22090421BFB82800A0B8BA /* GameFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF22090321BFB82800A0B8BA /* GameFunctions.swift */; };
 		AF5B077421C19CCE006CF925 /* BrokenPlatform.sks in Resources */ = {isa = PBXBuildFile; fileRef = AF5B077321C19CCE006CF925 /* BrokenPlatform.sks */; };
 		AF5B077621C268BC006CF925 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5B077521C268BC006CF925 /* Block.swift */; };
 		AFACE71821BEBE5400C9AA4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFACE71721BEBE5400C9AA4C /* AppDelegate.swift */; };
-		AFACE71C21BEBE5400C9AA4C /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = AFACE71B21BEBE5400C9AA4C /* Actions.sks */; };
 		AFACE71E21BEBE5400C9AA4C /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFACE71D21BEBE5400C9AA4C /* GameScene.swift */; };
 		AFACE72021BEBE5400C9AA4C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFACE71F21BEBE5400C9AA4C /* GameViewController.swift */; };
 		AFACE72321BEBE5400C9AA4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFACE72121BEBE5400C9AA4C /* Main.storyboard */; };
@@ -21,15 +19,17 @@
 		AFC0730121CB9C5500600553 /* SetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC0730021CB9C5500600553 /* SetupData.swift */; };
 		AFC0730321CB9C7800600553 /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC0730221CB9C7800600553 /* StartScene.swift */; };
 		AFC0730521CBA9E700600553 /* ScrollingBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC0730421CBA9E700600553 /* ScrollingBackground.swift */; };
+		AFC0730921CBE70600600553 /* pongBlip.wav in Resources */ = {isa = PBXBuildFile; fileRef = AFC0730721CBE70600600553 /* pongBlip.wav */; };
+		AFC0730A21CBE70600600553 /* paddleBlip.wav in Resources */ = {isa = PBXBuildFile; fileRef = AFC0730821CBE70600600553 /* paddleBlip.wav */; };
+		AFC0730C21CBE8EE00600553 /* bottomHit.wav in Resources */ = {isa = PBXBuildFile; fileRef = AFC0730B21CBE8EE00600553 /* bottomHit.wav */; };
+		AFC0730E21CC0A9600600553 /* BallTrail.sks in Resources */ = {isa = PBXBuildFile; fileRef = AFC0730D21CC0A9600600553 /* BallTrail.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AF22090321BFB82800A0B8BA /* GameFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFunctions.swift; sourceTree = "<group>"; };
 		AF5B077321C19CCE006CF925 /* BrokenPlatform.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BrokenPlatform.sks; sourceTree = "<group>"; };
 		AF5B077521C268BC006CF925 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		AFACE71421BEBE5400C9AA4C /* Breakout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breakout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFACE71721BEBE5400C9AA4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AFACE71B21BEBE5400C9AA4C /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		AFACE71D21BEBE5400C9AA4C /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		AFACE71F21BEBE5400C9AA4C /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		AFACE72221BEBE5400C9AA4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -40,6 +40,10 @@
 		AFC0730021CB9C5500600553 /* SetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupData.swift; sourceTree = "<group>"; };
 		AFC0730221CB9C7800600553 /* StartScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
 		AFC0730421CBA9E700600553 /* ScrollingBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollingBackground.swift; sourceTree = "<group>"; };
+		AFC0730721CBE70600600553 /* pongBlip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pongBlip.wav; sourceTree = "<group>"; };
+		AFC0730821CBE70600600553 /* paddleBlip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = paddleBlip.wav; sourceTree = "<group>"; };
+		AFC0730B21CBE8EE00600553 /* bottomHit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bottomHit.wav; sourceTree = "<group>"; };
+		AFC0730D21CC0A9600600553 /* BallTrail.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BallTrail.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +57,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AF0576FB21CCDDCD00E1A409 /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+				AFC0730D21CC0A9600600553 /* BallTrail.sks */,
+				AF5B077321C19CCE006CF925 /* BrokenPlatform.sks */,
+			);
+			path = Particles;
+			sourceTree = "<group>";
+		};
+		AF0576FC21CCDE0200E1A409 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				AFACE71D21BEBE5400C9AA4C /* GameScene.swift */,
+				AFC072FE21CB9A7500600553 /* GameManager.swift */,
+				AFC0730021CB9C5500600553 /* SetupData.swift */,
+				AFC0730221CB9C7800600553 /* StartScene.swift */,
+				AFC0730421CBA9E700600553 /* ScrollingBackground.swift */,
+				AF5B077521C268BC006CF925 /* Block.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		AFACE70B21BEBE5400C9AA4C = {
 			isa = PBXGroup;
 			children = (
@@ -72,16 +98,10 @@
 		AFACE71621BEBE5400C9AA4C /* Breakout */ = {
 			isa = PBXGroup;
 			children = (
+				AF0576FC21CCDE0200E1A409 /* Data */,
+				AF0576FB21CCDDCD00E1A409 /* Particles */,
+				AFC0730621CBE6F000600553 /* Sounds */,
 				AFACE71721BEBE5400C9AA4C /* AppDelegate.swift */,
-				AFACE71B21BEBE5400C9AA4C /* Actions.sks */,
-				AFACE71D21BEBE5400C9AA4C /* GameScene.swift */,
-				AFC072FE21CB9A7500600553 /* GameManager.swift */,
-				AFC0730021CB9C5500600553 /* SetupData.swift */,
-				AFC0730221CB9C7800600553 /* StartScene.swift */,
-				AF5B077321C19CCE006CF925 /* BrokenPlatform.sks */,
-				AFC0730421CBA9E700600553 /* ScrollingBackground.swift */,
-				AF22090321BFB82800A0B8BA /* GameFunctions.swift */,
-				AF5B077521C268BC006CF925 /* Block.swift */,
 				AFACE71F21BEBE5400C9AA4C /* GameViewController.swift */,
 				AFACE72121BEBE5400C9AA4C /* Main.storyboard */,
 				AFACE72421BEBE5600C9AA4C /* Assets.xcassets */,
@@ -89,6 +109,16 @@
 				AFACE72921BEBE5600C9AA4C /* Info.plist */,
 			);
 			path = Breakout;
+			sourceTree = "<group>";
+		};
+		AFC0730621CBE6F000600553 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				AFC0730821CBE70600600553 /* paddleBlip.wav */,
+				AFC0730B21CBE8EE00600553 /* bottomHit.wav */,
+				AFC0730721CBE70600600553 /* pongBlip.wav */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,11 +179,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFC0730C21CBE8EE00600553 /* bottomHit.wav in Resources */,
 				AFACE72321BEBE5400C9AA4C /* Main.storyboard in Resources */,
 				AFACE72521BEBE5600C9AA4C /* Assets.xcassets in Resources */,
+				AFC0730E21CC0A9600600553 /* BallTrail.sks in Resources */,
 				AF5B077421C19CCE006CF925 /* BrokenPlatform.sks in Resources */,
 				AFACE72821BEBE5600C9AA4C /* LaunchScreen.storyboard in Resources */,
-				AFACE71C21BEBE5400C9AA4C /* Actions.sks in Resources */,
+				AFC0730921CBE70600600553 /* pongBlip.wav in Resources */,
+				AFC0730A21CBE70600600553 /* paddleBlip.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,7 +201,6 @@
 				AFACE71E21BEBE5400C9AA4C /* GameScene.swift in Sources */,
 				AFC072FF21CB9A7500600553 /* GameManager.swift in Sources */,
 				AFC0730121CB9C5500600553 /* SetupData.swift in Sources */,
-				AF22090421BFB82800A0B8BA /* GameFunctions.swift in Sources */,
 				AF5B077621C268BC006CF925 /* Block.swift in Sources */,
 				AFACE72021BEBE5400C9AA4C /* GameViewController.swift in Sources */,
 				AFACE71821BEBE5400C9AA4C /* AppDelegate.swift in Sources */,
