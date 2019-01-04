@@ -21,6 +21,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var red1 = 54.0
     var green1 = 78.0
     var blue1 = 104.0
+    var ballInPlay = false
+    var start: CGPoint?
+    var end: CGPoint?
+    let launchLabel = SKLabelNode(text: "Launch")
+    var blockCounter = 0
     
     var isFingerOnPaddle = false
     let paddleRect = SKShapeNode(rectOf: CGSize(width: 160, height: 20))
@@ -40,7 +45,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var remainingTime: TimeInterval = 60{
         didSet{
             timerLabel.text = "Timer: \(Int(remainingTime))"
-            GameManager.sharedInstance.score = currentScore
             timerLabel.fontName = "Futura-MediumItalic"
             timerLabel.fontSize = 24
         }
@@ -51,6 +55,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             scoreLabel.text = "Score: \(currentScore)"
             scoreLabel.fontName = "Futura-MediumItalic"
             scoreLabel.fontSize = 24
+            GameManager.sharedInstance.score = currentScore
         }
     }
     
@@ -58,31 +63,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         
-        
-        setupPhysics()
-//        setupBall()
         setupLabels()
+        setupPhysics()
+        setUpBricks()
         setBGColor()
-
-        if(lives > 0){
-            setUpBricks()
-            remainingTime = 60
-            gameTimer()
-        }
-
+        remainingTime = 60
+        gameTimer()
+        launchBall()
 
         print(phoneSize)
         
         
     }
     
-    
+    func launchBall(){
+        launchLabel.fontName = "Futura-MediumItalic"
+        launchLabel.fontSize = 55
+        launchLabel.fontColor = .white
+        launchLabel.position = CGPoint(x: size.width / 2, y: size.height  * 0.35)
+        addChild(launchLabel)
+        
+    }
    
     func setBGColor(){
         let bgColor1 = UIColor(displayP3Red: CGFloat(red1 / 255.0), green: CGFloat(green1 / 255.0), blue: CGFloat(blue1 / 255.0), alpha: 1)
         backgroundColor = bgColor1
 
     }
+    
+    
     
     func setUpBricks(){
         
@@ -124,6 +133,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                     block.physicsBody!.categoryBitMask = BlockCategory
                     block.physicsBody?.isDynamic = false
                     block.zPosition = 2
+                    blockCounter += 1
 //                    let wait = SKAction.wait(forDuration: 0.2)
 //                    block.run(wait)
 
@@ -142,6 +152,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                     block.physicsBody?.isDynamic = false
                     block.zPosition = 2
                     self.addChild(block)
+                    blockCounter += 1
                     i += 1
                     break
                     
@@ -165,7 +176,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //                    }]))
                 }
             }
-
+            print("blockcounter: \(blockCounter)")
 //        }
     }
     
@@ -173,17 +184,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         if(phoneSize.width >= 800){
             livesLabel.position = CGPoint(x: size.width - (size.width * 0.95), y: size.height - (size.height * 0.25) )
+            livesLabel.text = "Lives: \(Int(lives))"
+            livesLabel.fontName = "Futura-MediumItalic"
+            livesLabel.fontSize = 24
             addChild(livesLabel)
             timerLabel.position = CGPoint(x: size.width - (size.width * 0.95), y: size.height - (size.height * 0.15))
+            GameManager.sharedInstance.score = currentScore
+            timerLabel.fontName = "Futura-MediumItalic"
+            timerLabel.fontSize = 24
             addChild(timerLabel)
             scoreLabel.position = CGPoint(x: size.width - (size.width * 0.95), y: size.height - (size.height * 0.2) )
+            scoreLabel.text = "Score: \(currentScore)"
+            scoreLabel.fontName = "Futura-MediumItalic"
+            scoreLabel.fontSize = 24
             addChild(scoreLabel)
         }else{
             livesLabel.position = CGPoint(x: size.width - (size.width * 0.95), y: size.height - (size.height * 0.15) )
+            livesLabel.text = "Lives: \(Int(lives))"
+            livesLabel.fontName = "Futura-MediumItalic"
+            livesLabel.fontSize = 24
             addChild(livesLabel)
             timerLabel.position = CGPoint(x: size.width - (size.width * 0.95), y: size.height - (size.height * 0.05))
+            GameManager.sharedInstance.score = currentScore
+            timerLabel.fontName = "Futura-MediumItalic"
+            timerLabel.fontSize = 24
             addChild(timerLabel)
             scoreLabel.position = CGPoint(x: size.width - (size.width * 0.95), y: size.height - (size.height * 0.1) )
+            scoreLabel.text = "Score: \(currentScore)"
+            scoreLabel.fontName = "Futura-MediumItalic"
+            scoreLabel.fontSize = 24
             addChild(scoreLabel)
         }
     
@@ -203,7 +232,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         block.zPosition = 2
     }
     
-    func setupPhysics(){
+    func setUpBall(){
         
         let ball = SKSpriteNode(imageNamed: "ball")
         ball.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(10))
@@ -215,14 +244,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         ball.size = CGSize(width: 30, height: 30)
         ball.zPosition = 2
         ball.physicsBody?.linearDamping = 0
-        ball.position = CGPoint(x: size.width / 5,
-                                y: size.height * 0.6)
+        ball.position = CGPoint(x: size.width / 2,
+                                y: size.height * 0.15)
         ball.name = "ball"
         ball.physicsBody!.contactTestBitMask = BottomCategory | BlockCategory | BorderCategory | PaddleCategory
         ball.physicsBody!.categoryBitMask = BallCategory
         addChild(ball)
-        ball.physicsBody!.applyImpulse(CGVector(dx: 10.0, dy: 15.0))
-
+        ball.physicsBody!.applyImpulse(CGVector(dx: 5.0, dy: 10.0))
+        
         let trailNode = SKNode()
         trailNode.zPosition = 2
         addChild(trailNode)
@@ -230,24 +259,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         let trail = SKEmitterNode(fileNamed: "BallTrail")!
         trail.targetNode = trailNode
         ball.addChild(trail)
+        
+    }
+    
+    func setupPhysics(){
+        
 //        var screenRect = CGRect(x: 0, y: 0, width: phoneSize.width, height: phoneSize.height)
         var borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
 //        let screenSize = SKPhysicsBody(edgeLoopFrom: screenRect)
         
-        let screenSize = CGRect(x: frame.origin.x, y: frame.origin.y + 50, width: frame.size.width, height: 630)
-        if phoneSize.width < 800{
-            borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+//        let screenSize = CGRect(x: frame.origin.x, y: frame.origin.y + 50, width: frame.size.width, height: 630)
+//        if phoneSize.width < 800{
+//            borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
 //            self.physicsBody = borderBody
-            print("smallscreen: \(self.frame)")
-            print("borderbody: \(borderBody)")
-
-        }else if(phoneSize.width > 800){
-            borderBody = SKPhysicsBody(edgeLoopFrom: screenSize )
+//            print("smallscreen: \(self.frame)")
+//            print("borderbody: \(borderBody)")
+//
+//        }else if(phoneSize.width > 800){
+//            borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
 //            self.physicsBody = borderBody
-            print("screensize: \(screenSize)")
-            print("borderbody: \(borderBody)")
-
-        }
+//            print("screensize: \(screenSize)")
+//            print("borderbody: \(borderBody)")
+//
+//        }
 
         borderBody.friction = 0
         borderBody.restitution = 1
@@ -273,7 +307,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         paddleRect.physicsBody?.isDynamic = false
         addChild(paddleRect)
 
-        let bottomRect = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: 1)
+        let bottomRect = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: 10)
         let bottom = SKNode()
         bottom.physicsBody = SKPhysicsBody(edgeLoopFrom: bottomRect)
         addChild(bottom)
@@ -309,21 +343,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         if firstBody.categoryBitMask == BallCategory && secondBody.categoryBitMask == BottomCategory {
 
             self.run(looseSound)
-            lives -= 1
-            runAnimation()
-            // loose one life, pause countdown until ball is released from paddle
+            print("loose one life")
+            looseOneLife()
             
         }
         
         if firstBody.categoryBitMask == BallCategory && secondBody.categoryBitMask == BlockCategory {
             breakBlock(node: secondBody.node!)
             currentScore += 1
-//            if isGameWon(){
-//
-//                ball.physicsBody!.linearDamping = 1.0
-//                scene.physicsWorld.gravity = CGVector(dx: 0.0, dy: -9.8)
-//            }
-
             self.run(brickSound)
         }
         
@@ -365,39 +392,79 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     
-//    func isGameWon() -> Bool {
-//
-//        var numberOfBricks = 0
-//        self.enumerateChildNodes(withName: "block") {
-//            node, stop in
-//            numberOfBricks = numberOfBricks + 1
-//        }
-//        return numberOfBricks == 0
-//    }
+    func looseOneLife(){
+        let ball = SKSpriteNode(imageNamed: "ball")
+        ball.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(10))
+        let node = childNode(withName: "ball")
+        node?.removeFromParent()
+        lives -= 1
+        print(lives)
+        runAnimation()
+        ballInPlay = false
+        
+        launchLabel.run(SKAction.unhide())
+        if(lives > 0){
+            isGameWon()
+        }else if (lives < 1){
+            gameOver()
+            
+        }
+        
+    }
+    
+    func isGameWon(){
+
+        if(blockCounter < 1){
+            print("blockcounter: \(blockCounter)")
+//            nextLevel()
+        }
+        
+    }
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches{
+            let ball = SKSpriteNode(imageNamed: "ball")
+            ball.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(10))
             let location = touch.location(in: self)
-           
+            let pos = touch.location(in: self)
+            let node = self.atPoint(pos)
             paddleRect.run(SKAction.moveTo(x: location.x, duration: 0.2))
+
+            if node == launchLabel {
+                setUpBall()
+                ballInPlay = true
+                node.run(SKAction.hide())
+            }
 
         }
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         for touch in touches{
             let location = touch.location(in: self)
             let paddleRect = SKSpriteNode(imageNamed: "blue" )
             paddleRect.run(SKAction.moveTo(x: location.x, duration: 0.2))
 
         }
+
+
+
     }
-    
     
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        isFingerOnPaddle = false
+        
+
+
+    }
+    
+    func gameOver(){
+        GameManager.sharedInstance.saveGameStats()
+        let scene = GameScene(size: CGSize(width: 1334, height: 750))
+        let transition = SKTransition.doorsOpenHorizontal(withDuration: 1)
+        self.view?.presentScene(scene, transition: transition)
     }
     
     func gameTimer(){
@@ -423,15 +490,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         }
     }
     
-//    override func didEnter(from previousState: GKState?) {
-//        if previousState is WaitingForTap {
-//            let ball = scene.childNode(withName: BallCategoryName) as? SKSpriteNode
-//            ball?.physicsBody!.applyImpulse(CGVector(dx: randomDirection(), dy: randomDirection()))
-//        }
-//    }
+
+    
     
     override func update(_ currentTime: TimeInterval) {
-
+        
+        if(ballInPlay){
         let ball = childNode(withName: "ball") as! SKSpriteNode
         let maxSpeed: CGFloat = 1300.0
         let xSpeed = sqrt(ball.physicsBody!.velocity.dx * ball.physicsBody!.velocity.dx)
@@ -456,45 +520,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         }
 //        print("xSpeed: \(xSpeed) ySpeed: \(ySpeed)")
     }
-    
+    }
 }
 
 
 
-//    func setupBall(){
-//        let ball = SKSpriteNode(imageNamed: "ball")
-//        ball.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(10))
-//        ball.physicsBody!.restitution = 1
-//        ball.physicsBody!.friction = 0.0
-//        ball.physicsBody!.affectedByGravity = false
-//        ball.physicsBody!.isDynamic = true
-//        ball.physicsBody!.angularDamping = 0
-//        ball.size = CGSize(width: 30, height: 30)
-//        ball.zPosition = 2
-////        ball.physicsBody?.mass = 0.008936
-//        ball.physicsBody?.linearDamping = 0
-//        ball.position = CGPoint(x: size.width / 5,
-//                                y: size.height * 0.6)
-//        ball.name = "ball"
-//        ball.physicsBody!.applyImpulse(CGVector(dx: 30.0, dy: 50.0))
-//
-//
-//        ball.physicsBody!.contactTestBitMask = BottomCategory | BlockCategory | BorderCategory | PaddleCategory
-//        ball.physicsBody!.categoryBitMask = BallCategory
-//        addChild(ball)
-//        let trailNode = SKNode()
-//        trailNode.zPosition = 2
-//        addChild(trailNode)
-//
-//        let trail = SKEmitterNode(fileNamed: "BallTrail")!
-//        trail.targetNode = trailNode
-//        ball.addChild(trail)
-//    }
-
-
-
-
-
-//          667 / 375               375/667 =  0.56
-//          896 / 414               414/896 =  0.46
-//
