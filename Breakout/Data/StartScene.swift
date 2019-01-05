@@ -78,7 +78,7 @@ class StartScene: SKScene{
                 
                 if node == startLabel {
                     let transition = SKTransition.fade(withDuration: 1)
-                    let scene = GameScene(size: CGSize(width: 1800, height: 828))
+                    let scene = GameScene(size: CGSize(width: 1344, height: 621))
                     scene.scaleMode = .aspectFill
                     self.view?.presentScene(scene, transition: transition)
                     
@@ -91,16 +91,6 @@ class StartScene: SKScene{
     
     
     
-//    scene.scaleMode = .aspectFill
-//
-//    // Present the scene
-//    if let view = self.view as! SKView? {
-//        view.presentScene(scene)
-//
-//        view.ignoresSiblingOrder = true
-//
-//        view.showsFPS = true
-//        view.showsNodeCount = true
     
     override func update(_ currentTime: TimeInterval) {
         if let scrollBG = self.scrollingBG {

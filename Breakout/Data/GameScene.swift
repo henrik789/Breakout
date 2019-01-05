@@ -117,15 +117,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             var block = SKSpriteNode(imageNamed: "yellowBlock.png")
             setUpBricksPhysics()
             var i = 0
-//            var canBuildBlock = true
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+
             
             for char in level2{
-//                block.run(SKAction.sequence([SKAction.wait(forDuration: 0.4),
-//                    SKAction.run { [weak self] in print("hej")
+                
                 switch (char) {
                 case "o":
-//                    canBuildBlock = true
+
                     block = SKSpriteNode(imageNamed: "yellowBlock.png")
                     block.position = CGPoint(x: xOffset + (CGFloat(i) * blockWidth),
                                              y: (yOffset - (blockHeight * CGFloat(index))))
@@ -134,9 +132,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                     block.physicsBody?.isDynamic = false
                     block.zPosition = 2
                     blockCounter += 1
-//                    let wait = SKAction.wait(forDuration: 0.2)
-//                    block.run(wait)
-
 
                     self.addChild(block)
 
@@ -264,25 +259,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     func setupPhysics(){
         
-//        var screenRect = CGRect(x: 0, y: 0, width: phoneSize.width, height: phoneSize.height)
-        var borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
-//        let screenSize = SKPhysicsBody(edgeLoopFrom: screenRect)
-        
-//        let screenSize = CGRect(x: frame.origin.x, y: frame.origin.y + 50, width: frame.size.width, height: 630)
-//        if phoneSize.width < 800{
-//            borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
-//            self.physicsBody = borderBody
-//            print("smallscreen: \(self.frame)")
-//            print("borderbody: \(borderBody)")
-//
-//        }else if(phoneSize.width > 800){
-//            borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
-//            self.physicsBody = borderBody
-//            print("screensize: \(screenSize)")
-//            print("borderbody: \(borderBody)")
-//
-//        }
-
+        let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         borderBody.friction = 0
         borderBody.restitution = 1
         self.physicsBody = borderBody
@@ -318,14 +295,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 
     }
     
-//    func animateOne(){
-//        let zoomIn = SKAction.scale(to: 1.5, duration: 0.35)
-//        let zoomUp = SKAction.scale(to: 1, duration: 0.35)
-//        let zoomOut = SKAction.scale(to: 0.25, duration: 0.35)
-//        let wait = SKAction.wait(forDuration: 0.35)
-//        let sequence = SKAction.sequence([zoomIn, wait, zoomUp, wait,  zoomIn, wait, zoomUp])
-//        let sequence2 = SKAction.sequence([zoomOut, wait, zoomUp, wait, zoomOut, wait, zoomUp])
-//    }
+
     
     func didBegin(_ contact: SKPhysicsContact) {
         
@@ -476,19 +446,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         print(remainingTime)
     }
     
-    func randomFloat(from: CGFloat, to: CGFloat) -> CGFloat {
-        let rand: CGFloat = CGFloat(Float(arc4random()) / 0xFFFFFFFF)
-        return (rand) * (to - from) + from
-    }
-    
-    func randomDirection() -> CGFloat {
-        let speedFactor: CGFloat = 3.0
-        if randomFloat(from: 0.0, to: 100.0) >= 50 {
-            return -speedFactor
-        } else {
-            return speedFactor
-        }
-    }
     
 
     
@@ -504,11 +461,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         let speed = sqrt((ball.physicsBody!.velocity.dx * ball.physicsBody!.velocity.dx) + (ball.physicsBody!.velocity.dy * ball.physicsBody!.velocity.dy))
 
         if xSpeed <= 20.0 {
-            ball.physicsBody!.applyImpulse(CGVector(dx: randomDirection(), dy: 0.0))
+            ball.physicsBody!.applyImpulse(CGVector(dx: Double(Float.random(in: 0 ..< 10)), dy: 0.0))
 //            print("x: " ,xSpeed)
         }
         if ySpeed <= 10.0 {
-            ball.physicsBody!.applyImpulse(CGVector(dx: 0.0, dy: randomDirection()))
+            ball.physicsBody!.applyImpulse(CGVector(dx: 0.0, dy: Double(Float.random(in: 0 ..< 10))))
 //            print("y: ", ySpeed)
         }
 
